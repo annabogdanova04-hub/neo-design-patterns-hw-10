@@ -1,5 +1,5 @@
 export interface Command {
-    execute(): void;
-    undo(): void;
-    redo(): void;
-} 
+  execute(): void;
+  undo(): void;
+  redo(): void;
+}

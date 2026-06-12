@@ -1,6 +1,6 @@
-import { AbstractCommand } from "./AbstractCommand";
-import { TaskList } from "../models/TaskList";
-import { Task } from "../models/Task";
+import { AbstractCommand } from './AbstractCommand';
+import { TaskList } from '../models/TaskList';
+import { Task } from '../models/Task';
 
 export class RemoveTaskCommand extends AbstractCommand {
   private removedTask: Task | undefined;
@@ -10,10 +10,12 @@ export class RemoveTaskCommand extends AbstractCommand {
   }
 
   execute(): void {
-    // TODO
+    this.removedTask = this.taskList.removeTask(this.taskId);
   }
 
   undo(): void {
-    // TODO
+    if (this.removedTask) {
+      this.taskList.addTask(this.removedTask);
+    }
   }
 }

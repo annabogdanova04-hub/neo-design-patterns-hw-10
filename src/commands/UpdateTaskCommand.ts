@@ -1,9 +1,9 @@
-import { AbstractCommand } from "./AbstractCommand";
-import { TaskList } from "../models/TaskList";
-import { Task } from "../models/Task";
+import { AbstractCommand } from './AbstractCommand';
+import { TaskList } from '../models/TaskList';
+import { Task } from '../models/Task';
 
 export class UpdateTaskCommand extends AbstractCommand {
-  private oldTask: Task | undefined;
+  private previousState: Task | undefined;
 
   constructor(
     private taskList: TaskList,
@@ -14,10 +14,14 @@ export class UpdateTaskCommand extends AbstractCommand {
   }
 
   execute(): void {
-    // TODO
+    const tasks = this.taskList.getAllTasks();
+    this.previousState = tasks.find(t => t.id === this.taskId);
+    this.taskList.updateTask(this.taskId, this.updates);
   }
 
   undo(): void {
-    // TODO
+    if (this.previousState) {
+      this.taskList.updateTask(this.taskId, this.previousState);
+    }
   }
 }
